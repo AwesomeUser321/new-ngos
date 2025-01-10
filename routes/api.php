@@ -20,7 +20,7 @@ Route::post('basic-information', [BasicInformationController::class, 'store']);
 
 Route::get('aim-objectives', [BasicInformationController::class, 'index']);
 
-Route::get('members', [BasicInformationController::class, 'store_member']);
+Route::post('members', [BasicInformationController::class, 'store_member']);
 
 
 

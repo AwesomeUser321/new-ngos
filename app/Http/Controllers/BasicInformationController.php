@@ -66,21 +66,35 @@ public function index()
         'email' => 'required|email|unique:details,email',
         'contact' => 'required|string|max:20',
         'address' => 'nullable|string',
-        'cnic' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
+        'cnic' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048', // Allow images and PDFs
         'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
-        'city_id' => 'required|exists:city_table,city_id',
+        'city_id' => 'required|exists:cities,city_id',
         'status_id' => 'required|exists:statuses,id',
     ]);
 
-    // Step 2: Insert data into the database
+    // Step 2: Handle file uploads
+    if ($request->hasFile('cv')) {
+        $cvFile = $request->file('cv');
+        $cvFilePath = $cvFile->store('uploads/cv', 'public'); // Save file in 'storage/app/public/uploads/cv'
+        $validatedData['cv'] = $cvFilePath; // Save file path to the database
+    }
+
+    if ($request->hasFile('cnic')) {
+        $cnicFile = $request->file('cnic');
+        $cnicFilePath = $cnicFile->store('uploads/cnic', 'public'); // Save file in 'storage/app/public/uploads/cnic'
+        $validatedData['cnic'] = $cnicFilePath; // Save file path to the database
+    }
+
+    // Step 3: Insert data into the database
     $detail = Detail::create($validatedData);
 
-    // Step 3: Return a custom JSON response
+    // Step 4: Return a custom JSON response
     return response()->json([
         'success' => true,
         'message' => 'Record created successfully.',
         'data' => $detail
     ], 201);
 }
+
 
 }
