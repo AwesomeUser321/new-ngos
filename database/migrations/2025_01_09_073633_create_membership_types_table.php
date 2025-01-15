@@ -15,10 +15,8 @@ class CreateMembershipTypesTable extends Migration
     {
         Schema::create('membership_types', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('member');
-            $table->string('general_body');
-            $table->string('executive');
-            $table->string('founding');
+            $table->string('name')->nullable();
+        
             $table->timestamps();
         });
         

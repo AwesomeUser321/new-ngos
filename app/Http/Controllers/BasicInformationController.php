@@ -50,7 +50,7 @@ public function index()
         ]);
     }
 
-
+  
 
     public function store_member(Request $request)
 {
@@ -69,7 +69,8 @@ public function index()
         'cnic' => 'nullable|file|mimes:jpeg,png,jpg,pdf|max:2048', // Allow images and PDFs
         'cv' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
         'city_id' => 'required|exists:cities,city_id',
-        'status_id' => 'required|exists:statuses,id',
+        'status_id' => 'nullable',
+         'member_type_id' => 'required|exists:membership_types,id', // Added validation for member type
     ]);
 
     // Step 2: Handle file uploads
@@ -88,13 +89,26 @@ public function index()
     // Step 3: Insert data into the database
     $detail = Detail::create($validatedData);
 
-    // Step 4: Return a custom JSON response
+       // Step 4: Create the Member record
+       $member = $detail->members()->create([
+        'member_type_id' => $request->member_type_id, // Associate member type
+    ]);
+
+    // Step 5: Return a custom JSON response
+    // return response()->json([
+    //     'success' => true,
+    //     'message' => 'Record created successfully.',
+    //     'data' => $detail
+    // ], 201);
+
     return response()->json([
         'success' => true,
         'message' => 'Record created successfully.',
-        'data' => $detail
+        'data' => [
+            'detail' => $detail,
+            'member' => $member,
+        ],
     ], 201);
 }
-
 
 }

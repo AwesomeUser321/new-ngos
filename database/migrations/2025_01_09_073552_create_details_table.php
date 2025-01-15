@@ -28,7 +28,7 @@ class CreateDetailsTable extends Migration
             $table->string('cnic');
             $table->string('cv')->nullable();
             $table->bigInteger('city_id')->unsigned();
-            $table->bigInteger('status_id')->unsigned();
+            $table->bigInteger('status_id')->unsigned()->nullable();
             $table->timestamps();
         
             $table->foreign('city_id')->references('city_id')->on('cities')->onDelete('cascade');

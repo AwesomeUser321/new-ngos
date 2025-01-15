@@ -28,3 +28,4 @@ class Detail extends Model
         return $this->hasMany(Member::class, 'details_id');
     }
 }
+
