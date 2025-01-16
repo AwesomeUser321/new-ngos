@@ -11,6 +11,8 @@ class Detail extends Model
         'name', 'father_name', 'gender', 'date_of_birth', 'qualification',
         'designation', 'occupation', 'email', 'contact', 'address', 'cnic',
         'cv', 'city_id', 'status_id'
+
+      
     ];
 
     public function city()

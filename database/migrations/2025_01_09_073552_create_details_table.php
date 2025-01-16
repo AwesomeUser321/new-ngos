@@ -25,7 +25,7 @@ class CreateDetailsTable extends Migration
             $table->string('email')->unique();
             $table->string('contact');
             $table->text('address');
-            $table->string('cnic');
+            $table->string('cnic')->nullable();
             $table->string('cv')->nullable();
             $table->bigInteger('city_id')->unsigned();
             $table->bigInteger('status_id')->unsigned()->nullable();
