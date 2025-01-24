@@ -15,19 +15,19 @@ class CreateDetailsTable extends Migration
     {
         Schema::create('details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('father_name');
-            $table->enum('gender', ['male', 'female', 'other']);
-            $table->date('date_of_birth');
-            $table->string('qualification');
-            $table->string('designation');
-            $table->string('occupation');
-            $table->string('email')->unique();
-            $table->string('contact');
-            $table->text('address');
+            $table->string('name')->nullable();
+            $table->string('father_name')->nullable();
+            $table->enum('gender', ['male', 'female', 'other'])->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('qualification')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('email')->unique()->nullable();
+            $table->string('contact')->nullable();
+            $table->text('address')->nullable();
             $table->string('cnic')->nullable();
             $table->string('cv')->nullable();
-            $table->bigInteger('city_id')->unsigned();
+            $table->bigInteger('city_id')->unsigned()->nullable();
             $table->bigInteger('status_id')->unsigned()->nullable();
             $table->timestamps();
         
